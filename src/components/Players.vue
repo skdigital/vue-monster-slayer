@@ -20,7 +20,7 @@ import { EventBus } from "./event-bus.js";
 export default {
   name: "Players",
   props: {
-    name: String,
+    name: String
   },
   data() {
     return {
@@ -30,10 +30,9 @@ export default {
   },
   computed: {
     gameStartedListner() {
-      EventBus.$on('game-started', gameStarted => {
-        this.gameStarted = gameStarted;
-        console.log(this.gameStarted);
-      })
+      return EventBus.$on("game-started", res => {
+        this.gameStarted = res;
+      });
     }
   }
 };

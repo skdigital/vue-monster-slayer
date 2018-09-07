@@ -24,11 +24,11 @@ export default {
   methods: {
     startNewGame() {
       this.gameStarted = true;
-      EventBus.$emit('game-started', this.gameStarted);
+      EventBus.$emit("game-started", this.gameStarted);
     },
     giveUp() {
       this.gameStarted = false;
-      EventBus.$emit('game-started', this.gameStarted);
+      EventBus.$emit("game-started", this.gameStarted);
     }
   }
 };
