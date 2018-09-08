@@ -31,6 +31,7 @@ export default {
     attack() {
       this.attackDamage = Math.floor(Math.random() * 20);
       EventBus.$emit("attack", this.attackDamage);
+      EventBus.$emit("attack-log", "PLAYER HITS MONSTER FOR " + this.attackDamage);
     },
     specialAttack() {
       this.attackSpecialDamage = Math.floor(Math.random() * 35);

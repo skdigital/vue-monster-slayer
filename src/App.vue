@@ -8,7 +8,9 @@
     <div class="menu-container">
       <Menu class="menu" />
     </div>
-
+    <div class="logs-container">
+      <Logs />
+    </div>
   </div>
 </template>
 
@@ -16,13 +18,15 @@
 import Player from "./components/Player.vue";
 import Monster from "./components/Monster";
 import Menu from "./components/Menu";
+import Logs from "./components/Log";
 
 export default {
   name: "app",
   components: {
     Player,
     Monster,
-    Menu
+    Menu,
+    Logs
   },
   data() {
     return {};
@@ -58,6 +62,15 @@ export default {
   border-width: 0.5px;
   height: 30%;
   padding: 10px;
+  box-shadow: 1px 1.5px lightgray;
+}
+.logs-container {
+  font-size: .7em;
+  margin-top: 15px;
+  border: lightgrey;
+  border-style: solid;
+  border-width: 0.5px;
+  min-height: 250px;
   box-shadow: 1px 1.5px lightgray;
 }
 </style>

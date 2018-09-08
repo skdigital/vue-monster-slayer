@@ -65,6 +65,8 @@ export default {
       setTimeout(() => {
         this.monsterAttack = Math.floor(Math.random() * 40);
         EventBus.$emit("monster-attack", this.monsterAttack);
+        EventBus.$emit("monster-attack-log", 'MONSTER HITS PLAYER FOR '
+        + this.monsterAttack)
       }, 1000);
     }
   }
