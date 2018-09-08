@@ -26,21 +26,18 @@ export default {
     return {
       playerHealth: 100,
       gameStarted: false,
-      profileImage: require('../assets/cute-cat-agent.jpg')
+      profileImage: require("../assets/cute-cat-agent.jpg")
     };
+  },
+  created() {
+    this.gameStartedListner;
   },
   computed: {
     gameStartedListner() {
       return EventBus.$on("game-started", res => {
         this.gameStarted = res;
-        console.log(this.gameStarted + ' Player')
+        console.log(this.gameStarted + ": Game running...player");
       });
-    }
-  },
-  methods: {
-    attack: function() {
-      let AttackRan = Math.random(1, 20);
-      EventBus.$emit("attack-Random", this.AttackRan);
     }
   }
 };

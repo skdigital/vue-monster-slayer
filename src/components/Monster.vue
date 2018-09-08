@@ -3,12 +3,11 @@
     <h1 class="player-names">{{ name }}</h1>
     <img class="profile-image" :src="profileImage" alt="">
     <span class="m-health-text">Health: {{monsterHealth}} %</span>
-    <div class="progress-container">
 
+    <div class="progress-container">
       <div
       v-bind:class="{healthBar1: gameStarted}"
-      :style="{width: monsterHealth + '%'}"
-      >
+      :style="{width: monsterHealth + '%'}">
       </div>
     </div>
   </div>
@@ -27,21 +26,41 @@ export default {
     return {
       monsterHealth: 100,
       gameStarted: false,
-      profileImage: require('../assets/cartoon-monster.jpg')
+      profileImage: require("../assets/cartoon-monster.jpg")
     };
+  },
+  created() {
+    this.gameStartedListner;
+    this.damageListner;
   },
   computed: {
     gameStartedListner() {
-      return EventBus.$on("game-started", res => {
+      EventBus.$on("game-started", res => {
         this.gameStarted = res;
-        console.log(this.gameStarted + ' Monster');
+        console.log(this.gameStarted + ": Game Running...monster");
       });
+    },
+    damageListner() {
+      EventBus.$on("attack", res => {
+        this.monsterHealth -= res;
+      });
+      EventBus.$on("attack-special", res => {
+        this.monsterHealth -= res;
+      });
+    }
+  },
+  watch: {
+    monsterHealth: function() {
+      if(this.monsterHealth <= 0) {
+        alert('You won!');
+        this.gameStarted = false;
+        this.monsterHealth = 100;
+      }
     }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .profile-image {
   width: 100px;
