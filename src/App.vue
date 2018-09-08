@@ -22,7 +22,7 @@ export default {
   components: {
     Player,
     Monster,
-    Menu
+    Menu,
   },
   data() {
     return {};
