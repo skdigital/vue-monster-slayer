@@ -18,7 +18,7 @@
 import { EventBus } from "./event-bus.js";
 
 export default {
-  name: "Players",
+  name: "Monster",
   props: {
     name: String
   },
@@ -37,25 +37,35 @@ export default {
     gameStartedListner() {
       EventBus.$on("game-started", res => {
         this.gameStarted = res;
-        console.log(this.gameStarted + ": Game Running...monster");
+        this.monsterHealth = 100;
       });
     },
     damageListner() {
       EventBus.$on("attack", res => {
         this.monsterHealth -= res;
+        this.monsterStrikesBack();
       });
       EventBus.$on("attack-special", res => {
         this.monsterHealth -= res;
+        this.monsterStrikesBack();
       });
     }
   },
   watch: {
-    monsterHealth: function() {
-      if(this.monsterHealth <= 0) {
-        alert('You won!');
+    monsterHealth() {
+      if (this.monsterHealth <= 0) {
+        alert("You won!");
         this.gameStarted = false;
         this.monsterHealth = 100;
       }
+    }
+  },
+  methods: {
+    monsterStrikesBack() {
+      setTimeout(() => {
+        this.monsterAttack = Math.floor(Math.random() * 40);
+        EventBus.$emit("monster-attack", this.monsterAttack);
+      }, 1000);
     }
   }
 };

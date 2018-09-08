@@ -31,13 +31,32 @@ export default {
   },
   created() {
     this.gameStartedListner;
+    this.damageListner;
+    this.healListner;
   },
   computed: {
     gameStartedListner() {
-      return EventBus.$on("game-started", res => {
+      EventBus.$on("game-started", res => {
         this.gameStarted = res;
-        console.log(this.gameStarted + ": Game running...player");
+        this.playerHealth = 100;
       });
+    },
+    damageListner() {
+      EventBus.$on("monster-attack", res => {
+        this.playerHealth -= res;
+      })
+    },
+    healListner() {
+      EventBus.$on("heal", res =>  {
+        this.playerHealth += res;
+      })
+    }
+  },
+  watch: {
+    playerHealth() {
+      if(this.playerHealth <= 0) {
+        alert('You lost! Better luck next time.')
+      }
     }
   }
 };
