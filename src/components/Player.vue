@@ -1,13 +1,13 @@
 <template>
   <div class="player-container">
-    <h1 class="player-names">{{ name }} - {{gameStarted}}</h1>
-
+    <h1 class="player-names">{{ name }}</h1>
+    <img class="profile-image" :src="profileImage" alt="cute-cat-agent">
+    <span class="p-health-text"> Health: {{playerHealth}} %</span>
     <div class="progress-container">
       <div
       v-bind:class="{healthBar1: gameStarted}"
       :style="{width: playerHealth + '%'}"
       >
-      {{playerHealth}}
       </div>
     </div>
   </div>
@@ -18,28 +18,42 @@
 import { EventBus } from "./event-bus.js";
 
 export default {
-  name: "Players",
+  name: "Player",
   props: {
     name: String
   },
   data() {
     return {
-      playerHealth: 50,
-      gameStarted: false
+      playerHealth: 100,
+      gameStarted: false,
+      profileImage: require('../assets/cute-cat-agent.jpg')
     };
   },
   computed: {
     gameStartedListner() {
       return EventBus.$on("game-started", res => {
         this.gameStarted = res;
+        console.log(this.gameStarted + ' Player')
       });
+    }
+  },
+  methods: {
+    attack: function() {
+      let AttackRan = Math.random(1, 20);
+      EventBus.$emit("attack-Random", this.AttackRan);
     }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.profile-image {
+  width: 100px;
+  display: flex;
+  margin: auto auto;
+  padding-bottom: 10px;
+}
+
 .player-names {
   display: flex;
   justify-content: center;
@@ -56,7 +70,7 @@ export default {
 .progress-container {
   display: flex;
   height: 30px;
-  background-color: lightgray;
+  background-color: darkgrey;
   margin: 3px;
   width: 245px;
 }
@@ -68,5 +82,12 @@ export default {
   align-items: flex-start;
   height: 30px;
   width: 100%;
+  transition: width 500ms;
+}
+
+.p-health-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

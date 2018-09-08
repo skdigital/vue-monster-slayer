@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div class="players-container">
-       <Players name="Sean"/>
-       <Players name="Monster"/>
+       <Player name="Sean"/>
+       <Monster name="Monster"/>
     </div>
 
     <div class="menu-container">
@@ -13,13 +13,15 @@
 </template>
 
 <script>
-import Players from "./components/Players.vue";
+import Player from "./components/Player.vue";
+import Monster from "./components/Monster";
 import Menu from "./components/Menu";
 
 export default {
   name: "app",
   components: {
-    Players,
+    Player,
+    Monster,
     Menu
   },
   data() {
