@@ -6,7 +6,7 @@
     <!-- log output list -->
     <div class="logs">
       <ul>
-        <li v-for="element in logData" :key="element.id">{{ element }}</li>
+        <li v-for="element in logData" :key="element.id"><strong>{{ element }}</strong></li>
       </ul>
     </div>
 
@@ -31,7 +31,7 @@ export default {
     playerAttackLog() {
       EventBus.$on("attack-log", res => {
         this.logData.push(res);
-      })
+      });
     },
     monsterAttackLog() {
       EventBus.$on("monster-attack-log", res => {
@@ -47,6 +47,12 @@ h4 {
   display: flex;
   justify-content: center;
   padding: none;
+}
+
+hr {
+  background-color: lightgrey;
+  height: 1px;
+  border: 0;
 }
 
 .logs {
