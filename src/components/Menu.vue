@@ -13,9 +13,11 @@
 <script>
 // imports
 import { EventBus } from "./event-bus.js";
+import  shared  from ".././mixins/shared.js";
 
 export default {
   name: "Menu",
+  mixins: [shared],
   data() {
     return {
       gameStarted: false,
@@ -29,18 +31,17 @@ export default {
       EventBus.$emit("game-started", this.gameStarted);
     },
     attack() {
-      this.attackDamage = Math.floor(Math.random() * 20);
+      this.attackDamage = this.calculateDamage(1, 10);
       EventBus.$emit("attack", this.attackDamage);
       EventBus.$emit("attack-log", "PLAYER HITS MONSTER FOR " + this.attackDamage);
     },
     specialAttack() {
-      this.attackSpecialDamage = Math.floor(Math.random() * 35);
+      this.attackSpecialDamage = this.calculateDamage(10, 20);
       EventBus.$emit("attack-special", this.attackSpecialDamage);
     },
     heal() {
       const heal = Math.floor(Math.random() * 15);
       EventBus.$emit("heal", heal);
-      console.log(heal + " Player used heal");
     },
     giveUp() {
       this.gameStarted = false;
