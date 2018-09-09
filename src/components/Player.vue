@@ -46,12 +46,14 @@ export default {
     damageListner() {
       EventBus.$on("monster-attack", res => {
         this.playerHealth -= res;
-      })
+      });
     },
     healListner() {
-      EventBus.$on("heal", res =>  {
-        this.playerHealth += res;
-      })
+      EventBus.$on("heal", res => {
+        if (this.playerHealth < 100) {
+          this.playerHealth += res;
+        }
+      });
     }
   },
   watch: {
