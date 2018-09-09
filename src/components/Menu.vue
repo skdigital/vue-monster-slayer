@@ -22,30 +22,30 @@ export default {
     return {
       gameStarted: false,
       attackDamage: 0,
-      attackSpecialDamage: 0
+      attackSpecialDamage: 0,
+      healDamage: 0
     };
   },
   methods: {
-    startNewGame() {
-      this.gameStarted = true;
-      EventBus.$emit("game-started", this.gameStarted);
-    },
     attack() {
       this.attackDamage = this.calculateDamage(1, 10);
       EventBus.$emit("attack", this.attackDamage);
-      EventBus.$emit("attack-log", "PLAYER HITS MONSTER FOR " + this.attackDamage);
+      EventBus.$emit("attack-log", "PLAYER HITS MONSTER WITH STANDARD ATTACK FOR " + this.attackDamage);
     },
     specialAttack() {
       this.attackSpecialDamage = this.calculateDamage(10, 20);
       EventBus.$emit("attack-special", this.attackSpecialDamage);
+      EventBus.$emit("special-attack-log", "PLAYER HITS MONSTER WITH SPECIAL ATTACK FOR " + this.attackSpecialDamage);
     },
     heal() {
-      const heal = Math.floor(Math.random() * 15);
-      EventBus.$emit("heal", heal);
+      this.healDamage = Math.floor(Math.random() * 15);
+      EventBus.$emit("heal", this.healDamage);
+      EventBus.$emit("heal-log", "PLAYER HEALS HIMSELF FOR " + this.healDamage);
     },
     giveUp() {
       this.gameStarted = false;
       EventBus.$emit("game-started", this.gameStarted);
+      EventBus.$emit("gives-up-log", "PLAYER GIVES UP, GAME RUNNING: " + this.gameStarted);
     }
   }
 };

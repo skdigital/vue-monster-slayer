@@ -25,7 +25,10 @@ export default {
   },
   created() {
     this.playerAttackLog;
+    this.playerSpecialAttackLog;
+    this.playerHeal;
     this.monsterAttackLog;
+    this.playerGivesUpLog;
   },
   computed: {
     playerAttackLog() {
@@ -33,10 +36,25 @@ export default {
         this.logData.push(res);
       });
     },
+    playerSpecialAttackLog() {
+      EventBus.$on("special-attack-log", res => {
+        this.logData.push(res);
+      })
+    },
+    playerHeal() {
+      EventBus.$on("heal-log", res => {
+        this.logData.push(res);
+      })
+    },
     monsterAttackLog() {
       EventBus.$on("monster-attack-log", res => {
         this.logData.push(res);
       });
+    },
+    playerGivesUpLog() {
+      EventBus.$on("gives-up-log", res => {
+        this.logData.push(res);
+      })
     }
   }
 };

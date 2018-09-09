@@ -16,9 +16,11 @@
 <script>
 // imports
 import { EventBus } from "./event-bus.js";
+import shared from "../mixins/shared.js";
 
 export default {
   name: "Monster",
+  mixins: [shared],
   props: {
     name: String
   },
@@ -53,19 +55,15 @@ export default {
   },
   watch: {
     monsterHealth() {
-      if (this.monsterHealth <= 0) {
-        alert("You won!");
-        this.gameStarted = false;
-        this.monsterHealth = 100;
-      }
+      this.checkWin();
     }
   },
   methods: {
     monsterStrikesBack() {
       setTimeout(() => {
-        this.monsterAttack = Math.floor(Math.random() * 40);
+        this.monsterAttack = this.calculateDamage(10, 20);
         EventBus.$emit("monster-attack", this.monsterAttack);
-        EventBus.$emit("monster-attack-log", 'MONSTER HITS PLAYER FOR '
+        EventBus.$emit("monster-attack-log", 'MONSTER HITS PLAYER WITH STANDARD ATTACK FOR '
         + this.monsterAttack)
       }, 1000);
     }

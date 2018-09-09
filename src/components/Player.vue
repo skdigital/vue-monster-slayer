@@ -16,9 +16,11 @@
 <script>
 // imports
 import { EventBus } from "./event-bus.js";
+import shared from ".././mixins/shared.js";
 
 export default {
   name: "Player",
+  mixins: [shared],
   props: {
     name: String
   },
@@ -54,9 +56,7 @@ export default {
   },
   watch: {
     playerHealth() {
-      if(this.playerHealth <= 0) {
-        alert('You lost! Better luck next time.')
-      }
+      this.checkWin();
     }
   }
 };
