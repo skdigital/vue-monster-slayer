@@ -13,7 +13,7 @@
 <script>
 // imports
 import { EventBus } from "./event-bus.js";
-import  shared  from ".././mixins/shared.js";
+import shared from ".././mixins/shared.js";
 
 export default {
   name: "Menu",
@@ -30,12 +30,19 @@ export default {
     attack() {
       this.attackDamage = this.calculateDamage(1, 10);
       EventBus.$emit("attack", this.attackDamage);
-      EventBus.$emit("attack-log", "PLAYER HITS MONSTER WITH STANDARD ATTACK FOR " + this.attackDamage);
+      EventBus.$emit(
+        "attack-log",
+        "PLAYER HITS MONSTER WITH STANDARD ATTACK FOR " + this.attackDamage
+      );
     },
     specialAttack() {
       this.attackSpecialDamage = this.calculateDamage(10, 20);
       EventBus.$emit("attack-special", this.attackSpecialDamage);
-      EventBus.$emit("special-attack-log", "PLAYER HITS MONSTER WITH SPECIAL ATTACK FOR " + this.attackSpecialDamage);
+      EventBus.$emit(
+        "special-attack-log",
+        "PLAYER HITS MONSTER WITH SPECIAL ATTACK FOR " +
+          this.attackSpecialDamage
+      );
     },
     heal() {
       this.healDamage = Math.floor(Math.random() * 15);
@@ -45,7 +52,10 @@ export default {
     giveUp() {
       this.gameStarted = false;
       EventBus.$emit("game-started", this.gameStarted);
-      EventBus.$emit("gives-up-log", "PLAYER GIVES UP, GAME RUNNING: " + this.gameStarted);
+      EventBus.$emit(
+        "gives-up-log",
+        "PLAYER GIVES UP, GAME RUNNING: " + this.gameStarted
+      );
     }
   }
 };

@@ -63,8 +63,10 @@ export default {
       setTimeout(() => {
         this.monsterAttack = this.calculateDamage(10, 20);
         EventBus.$emit("monster-attack", this.monsterAttack);
-        EventBus.$emit("monster-attack-log", 'MONSTER HITS PLAYER WITH STANDARD ATTACK FOR '
-        + this.monsterAttack)
+        EventBus.$emit(
+          "monster-attack-log",
+          "MONSTER HITS PLAYER WITH STANDARD ATTACK FOR " + this.monsterAttack
+        );
       }, 1000);
     }
   }

@@ -39,12 +39,12 @@ export default {
     playerSpecialAttackLog() {
       EventBus.$on("special-attack-log", res => {
         this.logData.push(res);
-      })
+      });
     },
     playerHeal() {
       EventBus.$on("heal-log", res => {
         this.logData.push(res);
-      })
+      });
     },
     monsterAttackLog() {
       EventBus.$on("monster-attack-log", res => {
@@ -54,7 +54,7 @@ export default {
     playerGivesUpLog() {
       EventBus.$on("gives-up-log", res => {
         this.logData.push(res);
-      })
+      });
     }
   }
 };
