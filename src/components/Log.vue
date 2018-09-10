@@ -24,13 +24,13 @@ export default {
     };
   },
   created() {
-    this.playerAttackLog;
-    this.playerSpecialAttackLog;
-    this.playerHeal;
-    this.monsterAttackLog;
-    this.playerGivesUpLog;
+    this.playerAttackLog();
+    this.playerSpecialAttackLog();
+    this.playerHeal();
+    this.monsterAttackLog();
+    this.playerGivesUpLog();
   },
-  computed: {
+  methods: {
     playerAttackLog() {
       EventBus.$on("attack-log", res => {
         this.logData.push(res);

@@ -32,11 +32,11 @@ export default {
     };
   },
   created() {
-    this.gameStartedListner;
-    this.damageListner;
-    this.healListner;
+    this.gameStartedListner();
+    this.damageListner();
+    this.healListner();
   },
-  computed: {
+  methods: {
     gameStartedListner() {
       EventBus.$on("game-started", res => {
         this.gameStarted = res;

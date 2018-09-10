@@ -32,10 +32,10 @@ export default {
     };
   },
   created() {
-    this.gameStartedListner;
-    this.damageListner;
+    this.gameStartedListner();
+    this.damageListner();
   },
-  computed: {
+  methods: {
     gameStartedListner() {
       EventBus.$on("game-started", res => {
         this.gameStarted = res;
@@ -51,14 +51,7 @@ export default {
         this.monsterHealth -= res;
         this.monsterStrikesBack();
       });
-    }
-  },
-  watch: {
-    monsterHealth() {
-      this.checkWin();
-    }
-  },
-  methods: {
+    },
     monsterStrikesBack() {
       setTimeout(() => {
         this.monsterAttack = this.calculateDamage(10, 20);
@@ -68,6 +61,11 @@ export default {
           "MONSTER HITS PLAYER WITH STANDARD ATTACK FOR " + this.monsterAttack
         );
       }, 1000);
+    }
+  },
+  watch: {
+    monsterHealth() {
+      this.checkWin();
     }
   }
 };

@@ -65,7 +65,7 @@ export default {
   box-shadow: 1px 1.5px lightgray;
 }
 .logs-container {
-  font-size: .7em;
+  font-size: 0.7em;
   margin-top: 15px;
   border: lightgrey;
   border-style: solid;
