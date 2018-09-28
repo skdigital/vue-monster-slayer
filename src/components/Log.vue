@@ -47,7 +47,11 @@ export default {
     },
     playerHeal() {
       EventBus.$on("heal-log", res => {
-        this.logData.unshift(res);
+        if (this.playerHealth != 100) {
+          this.logData.unshift(res);
+        } else {
+          this.logData.unshift("PLAYER HEALTH IS FULL!");
+        }
       });
     },
     monsterAttackLog() {
@@ -58,6 +62,9 @@ export default {
     playerGivesUpLog() {
       EventBus.$on("gives-up-log", res => {
         this.logData.unshift(res);
+        setTimeout(() => {
+          this.logData = [];
+        }, 1000);
       });
     },
     playerHealthListener() {
@@ -69,7 +76,7 @@ export default {
   },
   watch: {
     playerHealth() {
-      if (this.playerHealth == 100) {
+      if (this.playerHealth >= 100) {
         this.logData.unshift("PLAYER HEALTH 100%");
       }
     }
