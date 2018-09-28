@@ -52,6 +52,9 @@ export default {
       EventBus.$on("heal", res => {
         if (this.playerHealth < 100) {
           this.playerHealth += res;
+          if (this.playerHealth > 100) {
+            this.playerHealth = 100;
+          }
         }
       });
     }
@@ -59,6 +62,7 @@ export default {
   watch: {
     playerHealth() {
       this.checkWin();
+      EventBus.$emit("player-health", this.playerHealth);
     }
   }
 };

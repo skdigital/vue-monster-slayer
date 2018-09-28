@@ -20,7 +20,8 @@ export default {
   name: "Logs",
   data() {
     return {
-      logData: []
+      logData: [],
+      playerHealth: 100
     };
   },
   created() {
@@ -29,32 +30,48 @@ export default {
     this.playerHeal();
     this.monsterAttackLog();
     this.playerGivesUpLog();
+    this.playerHealthListener();
   },
   methods: {
     playerAttackLog() {
       EventBus.$on("attack-log", res => {
-        this.logData.push(res);
+        this.logData.unshift(res);
       });
     },
     playerSpecialAttackLog() {
-      EventBus.$on("special-attack-log", res => {
-        this.logData.push(res);
-      });
+      if (this.playerHealth < 100) {
+        EventBus.$on("special-attack-log", res => {
+          this.logData.unshift(res);
+        });
+      }
     },
     playerHeal() {
       EventBus.$on("heal-log", res => {
-        this.logData.push(res);
+        this.logData.unshift(res);
       });
     },
     monsterAttackLog() {
       EventBus.$on("monster-attack-log", res => {
-        this.logData.push(res);
+        this.logData.unshift(res);
       });
     },
     playerGivesUpLog() {
       EventBus.$on("gives-up-log", res => {
-        this.logData.push(res);
+        this.logData.unshift(res);
       });
+    },
+    playerHealthListener() {
+      EventBus.$on("player-health", res => {
+        this.playerHealth = res;
+        console.log(this.playerHealth);
+      });
+    }
+  },
+  watch: {
+    playerHealth() {
+      if (this.playerHealth == 100) {
+        this.logData.unshift("PLAYER HEALTH 100%");
+      }
     }
   }
 };
@@ -77,6 +94,7 @@ hr {
   display: flex;
   justify-content: center;
   margin-left: -43px;
+  text-align: center;
 }
 
 ul li {
