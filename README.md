@@ -1,4 +1,7 @@
 # vue-monster-slayer
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/skdigital/vue-monster-slayer.svg)](https://greenkeeper.io/)
+
 ### Summary
 
 This project is a quick game that uses the following technologies & libraries.
